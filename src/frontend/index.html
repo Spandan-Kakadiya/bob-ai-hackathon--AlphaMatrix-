@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT BOB // Advanced Defense Threat Intelligence & Space-Cyber War-Room</title>
+  <meta name="description" content="Tier-1 Military Defense Intelligence Platform featuring Interactive Attack Topology, Live RF Spectrum Oscilloscope, DEFCON Escalator, Scenario Injector, and AI BLUF Briefing Engine.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="defcon-2">
+
+  <!-- Defense Authentication Gate Overlay (Strict Registration First) -->
+  <div id="authGateOverlay" class="auth-gate-overlay">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo-badge">BOB-MIL // DEFENSE MATRIX</div>
+        <h2>CLASSIFIED DEFENSE OPERATIONS GATE</h2>
+        <div class="auth-subtitle">Mandatory Identity Verification • Role-Based Clearance Engine</div>
+      </div>
+
+      <!-- Auth Mode Switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabBtnRegister">📝 1. Register Defense Clearance</button>
+        <button class="auth-tab-btn" id="tabBtnLogin">🔐 2. Analyst Login</button>
+      </div>
+
+      <!-- Register Form (Default First Step) -->
+      <form id="formRegister" class="auth-form active">
+        <div style="font-size:0.75rem; color:var(--cyan); margin-bottom:12px; font-family:var(--font-mono);">
+          ⚠️ Unregistered personnel cannot access command telemetry. Register to obtain active session clearance:
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Full Name & Rank</label>
+            <input type="text" id="regName" class="form-input" placeholder="e.g. Maj. Alex Vance" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tactical Call-Sign</label>
+            <input type="text" id="regCallsign" class="form-input" placeholder="e.g. VANGUARD-01" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Military Intelligence Email</label>
+          <input type="email" id="regEmail" class="form-input" placeholder="analyst.name@bob-defense.mil" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Requested Security Clearance</label>
+            <select id="regClearance" class="form-select">
+              <option value="LEVEL-5 (TOP SECRET // SI-TK)" selected>LEVEL-5 (TOP SECRET // SI-TK)</option>
+              <option value="LEVEL-4 (SECRET // REL TO FVEY)">LEVEL-4 (SECRET // REL TO FVEY)</option>
+              <option value="LEVEL-3 (CONFIDENTIAL // CYBER)">LEVEL-3 (CONFIDENTIAL // CYBER)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Operational Unit / Division</label>
+            <input type="text" id="regDivision" class="form-input" value="Joint Cyber & Space Defense Task Force" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Master Security Password (Min 6 characters)</label>
+          <input type="password" id="regPassword" class="form-input" placeholder="Create encrypted passphrase..." required>
+        </div>
+
+        <div id="regErrorMsg" class="auth-error-msg"></div>
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="btnRegisterSubmit">
+          🛡️ Register & Unlock War-Room Dashboard
+        </button>
+      </form>
+
+      <!-- Login Form -->
+      <form id="formLogin" class="auth-form">
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px; font-family:var(--font-mono);">
+          Enter registered credentials to authenticate session token:
+        </div>
+        <div class="form-group">
+          <label class="form-label">Registered Military Email</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="analyst.name@bob-defense.mil" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Security Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required>
+        </div>
+        <div id="loginErrorMsg" class="auth-error-msg"></div>
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="btnLoginSubmit">
+          🔓 Authenticate & Access Classified HUD
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <div id="authStorageStatus">
+          <span class="pulse-dot"></span> Vault: <strong style="color:var(--cyan);">Supabase Cloud Database & PBKDF2 Vault</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Tactical Command Header -->
+  <header class="command-header">
+    <div class="brand-section">
+      <div class="logo-badge">BOB</div>
+      <div class="brand-title">
+        <h1>PROJECT BOB // DEFENSE WAR-ROOM INTEL</h1>
+        <div class="subtitle">Multi-Source Correlation • MITRE ATT&CK • AI BLUF Executive Briefing Engine</div>
+      </div>
+    </div>
+
+    <!-- Active Analyst Profile & Controls -->
+    <div class="header-controls">
+      <!-- DEFCON Selector -->
+      <div class="defcon-selector-wrap" title="Change Defense Readiness Condition">
+        <span class="defcon-label">DEFCON:</span>
+        <select id="selectDefcon" class="defcon-select">
+          <option value="5">5 // NORMAL PEACE</option>
+          <option value="4">4 // INTEL WATCH</option>
+          <option value="3">3 // AIR DEFENSE READINESS</option>
+          <option value="2" selected>2 // ARMED ATTACK IMMINENT</option>
+          <option value="1">1 // MAXIMUM RED ALERT</option>
+        </select>
+      </div>
+
+      <div class="user-clearance-badge" id="userProfileBadge">
+        <span class="user-avatar" id="userAvatar">🎖️</span>
+        <div class="user-info-text">
+          <div class="user-name" id="displayUserName">Unauthenticated</div>
+          <div class="user-clearance" id="displayUserClearance">AWAITING REGISTRATION</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="btnSimulateFeed" title="Ingest new batch of multi-source defense alerts">
+        ⚡ Ingest Telemetry (+3)
+      </button>
+      <button class="btn" id="btnAutoStreamToggle">
+        📡 Auto-Pulse: <span id="autoStreamState" style="color:var(--emerald)">OFF</span>
+      </button>
+      <button class="btn" id="btnOpenIngestModal">
+        ➕ Ingest Raw Log
+      </button>
+      <button class="btn" id="btnSoundToggle" title="Toggle audio alerts">
+        🔊 Sound: <span id="soundState" style="color:var(--cyan)">ON</span>
+      </button>
+      <button class="btn" id="btnConfigSupabase" title="Configure Supabase Cloud Credentials">
+        ☁️ Supabase
+      </button>
+      <button class="btn" id="btnConfigLlm" title="Configure OpenAI API Key">
+        🔑 AI Config
+      </button>
+      <button class="btn btn-danger" id="btnLogout" title="Log out from tactical HUD" style="padding:6px 10px;">
+        🚪 Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-tabs">
+    <div class="nav-tab active" data-tab="tab-ops">
+      🛡️ Tactical Operations HUD
+    </div>
+    <div class="nav-tab" data-tab="tab-topology">
+      🌐 Attack Topology & RF Spectrum
+    </div>
+    <div class="nav-tab" data-tab="tab-mitre">
+      ⚔️ MITRE ATT&CK Matrix
+    </div>
+    <div class="nav-tab" data-tab="tab-bluf">
+      📄 BLUF Commander Intelligence
+    </div>
+    <div class="nav-tab" data-tab="tab-copilot">
+      🤖 AI Intel Copilot
+    </div>
+    <div class="nav-tab" data-tab="tab-architecture">
+      🔒 Security & Clearance Specs
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-wrapper">
+
+    <!-- Interactive Tactical Scenario Injector Bar -->
+    <div class="scenario-injector-bar">
+      <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-bright); display:flex; align-items:center; gap:6px;">
+        <span class="pulse-dot"></span> <strong>TACTICAL SCENARIO INJECTOR:</strong>
+      </div>
+      <div class="scenario-btn-group">
+        <button class="btn btn-scenario" data-scenario="space_cyber" title="Inject APT-COSMIC Coordinated Space-Cyber Strike">
+          🚀 1. Space-Cyber Assault (APT-COSMIC)
+        </button>
+        <button class="btn btn-scenario" data-scenario="radar_spoof" title="Inject SANDWORM Air Defense Radar Spoofing">
+          🛰️ 2. Radar Spoofing & C2 (SANDWORM)
+        </button>
+        <button class="btn btn-scenario" data-scenario="ransomware" title="Inject APT28 Core Network Ransomware Breach">
+          💻 3. Command Post Ransomware (APT28)
+        </button>
+        <button class="btn btn-scenario" data-scenario="benign_noise" title="Inject Benign Routine Scans to test noise reduction">
+          🚫 4. Test Noise Filter Batch
+        </button>
+      </div>
+    </div>
+
+    <!-- Interactive Search & Classification Bar -->
+    <div class="interactive-search-bar">
+      <div class="search-input-wrap">
+        <span style="font-family:var(--font-mono); color:var(--cyan); font-size:0.8rem;">🔍 FILTER INTEL:</span>
+        <input type="text" id="threatSearchInput" class="form-input search-input" placeholder="Search adversary actors (e.g. APT28, APT-COSMIC), target assets, TTPs, or keywords...">
+      </div>
+      <div class="classification-watermark" id="activeClearanceWatermark">
+        SECURITY CLEARANCE: <span id="watermarkLevelText" style="color:var(--emerald);">LEVEL-5 TOP SECRET</span>
+      </div>
+    </div>
+
+    <!-- Top Key Defense Metrics HUD -->
+    <section class="hud-metrics-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span>Multi-Source Alerts Ingested</span>
+          <span>SIEM • SAT • CYBER</span>
+        </div>
+        <div class="metric-val" id="metricTotalAlerts">0</div>
+        <div class="metric-sub">Real-time cross-domain feeds</div>
+      </div>
+
+      <div class="metric-card emerald">
+        <div class="metric-header">
+          <span>False Positives Filtered</span>
+          <span>NOISE REDUCTION</span>
+        </div>
+        <div class="metric-val" id="metricFpFiltered" style="color:var(--emerald)">0 (0%)</div>
+        <div class="metric-sub" id="metricNoiseSub">Routine scans & orbital glints discarded</div>
+      </div>
+
+      <div class="metric-card crimson">
+        <div class="metric-header">
+          <span>Genuine Threat Incidents</span>
+          <span>CORRELATED CLUSTERS</span>
+        </div>
+        <div class="metric-val" id="metricActiveClusters" style="color:var(--crimson)">0</div>
+        <div class="metric-sub" id="metricCriticalSub">High-confidence multi-domain attacks</div>
+      </div>
+
+      <div class="metric-card amber">
+        <div class="metric-header">
+          <span>MITRE TTPs Detected</span>
+          <span>TACTICAL COVERAGE</span>
+        </div>
+        <div class="metric-val" id="metricMitreCount" style="color:var(--amber)">0 Active</div>
+        <div class="metric-sub">Across 14 enterprise & space tactics</div>
+      </div>
+    </section>
+
+    <!-- Tab 1: Operations HUD (3-Column Layout) -->
+    <div class="tab-pane active" id="tab-ops">
+      <div class="ops-grid">
+
+        <!-- Column 1: Multi-Source Raw Ingestion Feed Stream -->
+        <section class="tactical-panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span>📡 Ingested Feed Stream</span>
+            </div>
+            <span class="meta-chip" id="feedCountChip">0 items</span>
+          </div>
+          <div class="panel-body">
+            <div class="feed-filters">
+              <button class="feed-filter-btn active" data-source="ALL">ALL</button>
+              <button class="feed-filter-btn" data-source="SIEM">SIEM</button>
+              <button class="feed-filter-btn" data-source="SATELLITE">SATELLITE</button>
+              <button class="feed-filter-btn" data-source="CYBER">CYBER</button>
+              <button class="feed-filter-btn" data-source="INTEL">INTEL</button>
+            </div>
+            <div id="alertFeedContainer">
+              <!-- Dynamically populated alert items -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Column 2: Correlated Threat Clusters & Incident Triage -->
+        <section class="tactical-panel">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span>🎯 Correlated Threat Incidents (Genuine Attacks)</span>
+            </div>
+            <button class="btn btn-primary" id="btnQuickBlufAll" style="font-size:0.75rem; padding: 4px 10px;">
+              ⚡ Synthesize BLUF
+            </button>
+          </div>
+          <div class="panel-body" id="threatClustersContainer">
+            <!-- Correlated clusters populated dynamically with interactive mitigation buttons -->
+          </div>
+        </section>
+
+        <!-- Column 3: Tactical Geospatial & Satellite Map -->
+        <section class="tactical-panel col-satellite-map">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span>🛰️ Geospatial & Orbit Radar</span>
+            </div>
+            <span class="meta-chip" style="color:var(--cyan)">GRID SEC-7</span>
+          </div>
+          <div class="panel-body">
+            <div class="map-canvas-wrap">
+              <canvas id="tacticalMapCanvas"></canvas>
+            </div>
+            <div class="map-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span> SAT Orbit / RF</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--cyan)"></span> Command Nodes</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--crimson)"></span> Jamming / Strike</div>
+            </div>
+            <div id="sectorMonitoringBox" style="margin-top:14px; font-size:0.75rem; font-family:var(--font-mono); color:var(--text-muted); line-height:1.4;">
+              <strong style="color:var(--text-bright);">Active Sector Monitoring:</strong><br>
+              • SATCOM-UPLINK-04: <span style="color:var(--crimson);">RF NOISE JAMMING (22dB)</span><br>
+              • RADAR-ALPHA: <span style="color:var(--emerald);">NORMAL (44.01°E)</span><br>
+              • AIR-DEF-GATEWAY: <span style="color:var(--amber);">CREDENTIAL ANOMALY</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Tab 2: Attack Topology & RF Spectrum (NEW INTERACTIVE HUB) -->
+    <div class="tab-pane" id="tab-topology">
+      <div class="topology-grid">
+        
+        <!-- Left: Interactive Multi-Domain Attack Topology Graph -->
+        <section class="tactical-panel" style="flex:2;">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span>🌐 Interactive Attack Path & Blast Radius Topology</span>
+            </div>
+            <span class="meta-chip" style="color:var(--emerald);">DRAG NODES • CLICK TO INSPECT</span>
+          </div>
+          <div class="panel-body">
+            <div class="topology-canvas-wrap">
+              <canvas id="topologyCanvas"></canvas>
+            </div>
+            <div class="topology-legend-bar">
+              <span class="legend-pill" style="border-color:var(--crimson); color:var(--crimson);">🔴 Hostile Adversaries</span>
+              <span class="legend-pill" style="border-color:var(--amber); color:var(--amber);">🟡 Attack Vectors & TTPs</span>
+              <span class="legend-pill" style="border-color:var(--cyan); color:var(--cyan);">🔵 Defense Gateways</span>
+              <span class="legend-pill" style="border-color:var(--purple); color:var(--purple);">🟣 Satellite Ground Stations</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right: Live RF Signal Spectrum Oscilloscope & Counter-EW -->
+        <section class="tactical-panel" style="flex:1;">
+          <div class="panel-head">
+            <div class="panel-title">
+              <span>📡 Live RF Spectrum & EW Oscilloscope</span>
+            </div>
+            <span class="meta-chip" id="rfStatusChip" style="color:var(--crimson);">JAMMING: +22dB</span>
+          </div>
+          <div class="panel-body">
+            <div class="oscilloscope-canvas-wrap">
+              <canvas id="rfSpectrumCanvas"></canvas>
+            </div>
+            <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-muted); margin-top:10px; line-height:1.4;">
+              <strong>Monitored Carrier Band:</strong> Ku-Band (14.25 GHz)<br>
+              <strong>Transponder 4 Noise Floor:</strong> <span style="color:var(--crimson);" id="rfNoiseFloorText">-48 dBm (DEGRADED)</span><br>
+              <strong>Carrier Hopping Status:</strong> <span style="color:var(--amber);" id="rfHoppingStatus">STANDBY (Standard Carrier)</span>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:8px;">
+              <button class="btn btn-primary" id="btnToggleCounterEW" style="width:100%; font-size:0.78rem;">
+                📡 Engage Frequency Agile Hopping
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Tab 3: MITRE ATT&CK Matrix View -->
+    <div class="tab-pane" id="tab-mitre">
+      <div class="tactical-panel">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span>⚔️ Enterprise & Space / Electronic Warfare MITRE ATT&CK Matrix</span>
+          </div>
+          <div style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-muted);">
+            Click any technique for automated mitigation playbook & detection logic
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="mitre-grid" id="mitreGridContainer">
+            <!-- Dynamically populated MITRE grid columns -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: BLUF Commander Intelligence Center -->
+    <div class="tab-pane" id="tab-bluf">
+      <div class="bluf-container" id="blufReportViewer">
+        <div class="bluf-banner">
+          <div>
+            <div class="classification-tag" id="blufClassification">TOP SECRET // NOFORN</div>
+            <div style="font-size:0.78rem; font-family:var(--font-mono); color:var(--text-muted); margin-top:4px;" id="blufMetaId">
+              REPORT: BLUF-2026-PENDING • DEFENSE COMMAND TACTICAL SYNTHESIS
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="btnExportMarkdown">📥 Export Markdown</button>
+            <button class="btn" id="btnExportStix">🛡️ Export STIX 2.1</button>
+            <button class="btn" id="btnPrintReport">🖨️ Print / PDF</button>
+            <button class="btn btn-danger" id="btnAuthorizeROE">⚡ Authorize ROE</button>
+          </div>
+        </div>
+
+        <div class="bluf-headline-box">
+          <div class="bluf-title" id="blufHeadlineTitle">SELECT A THREAT INCIDENT TO SYNTHESIZE COMMANDER BLUF</div>
+          <div class="bluf-text" id="blufHeadlineBody">
+            Click "Synthesize Commander BLUF" on any active threat cluster in the Operations HUD to generate an immediate Bottom Line Up Front assessment for senior leadership.
+          </div>
+        </div>
+
+        <div class="bluf-section-title">KEY INTELLIGENCE JUDGMENTS</div>
+        <div class="judgments-list" id="blufJudgmentsList">
+          <div class="judgment-item">No incident selected. Ready for multi-source intelligence correlation.</div>
+        </div>
+
+        <div class="bluf-section-title">CHRONOLOGICAL MULTI-SOURCE TIMELINE</div>
+        <div id="blufTimelineContainer" style="display:flex; flex-direction:column; gap:6px;">
+          <!-- Timeline entries -->
+        </div>
+
+        <div class="bluf-section-title">TACTICAL & MISSION IMPACT</div>
+        <div class="impact-list" id="blufImpactList">
+          <!-- Tactical impact bullets -->
+        </div>
+
+        <div class="bluf-section-title">PRIORITISED COMMANDER ACTION PLAN & ROE</div>
+        <table class="commander-actions-table">
+          <thead>
+            <tr>
+              <th style="width:160px;">PRIORITY / WINDOW</th>
+              <th>TACTICAL DEFENSE ACTION</th>
+              <th style="width:200px;">RESPONSIBLE COMMAND</th>
+            </tr>
+          </thead>
+          <tbody id="blufActionsTbody">
+            <tr>
+              <td colspan="3" style="color:var(--text-muted); text-align:center;">Generate a BLUF report to inspect prioritized commander decisions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 5: AI Intel Copilot -->
+    <div class="tab-pane" id="tab-copilot">
+      <div class="tactical-panel" style="max-width:960px; margin:0 auto;">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span>🤖 AI Tactical Defense Intelligence Copilot (GPT-4o)</span>
+          </div>
+          <span class="meta-chip" style="color:var(--emerald);">AI ONLINE & READY</span>
+        </div>
+        <div class="panel-body" style="padding:20px;">
+          <div style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;">
+            Inquire about live multi-domain threats, adversary attribution, MITRE ATT&CK kill-chain progression, or request customized tactical response orders:
+          </div>
+
+          <!-- Quick Prompts -->
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+            <button class="btn btn-quick-prompt" data-query="Give me a comprehensive intelligence brief on all active nation-state threat clusters currently detected.">
+              🎯 Brief Active Threat Actors
+            </button>
+            <button class="btn btn-quick-prompt" data-query="Analyze the SATCOM jamming attack and outline immediate counter-EW measures.">
+              🛰️ SATCOM Jamming Analysis
+            </button>
+            <button class="btn btn-quick-prompt" data-query="What is the noise-reduction ratio and what false positive patterns were discarded?">
+              📊 Noise Reduction Audit
+            </button>
+            <button class="btn btn-quick-prompt" data-query="Draft an executive operational order for Joint Task Force Commander under ROE Rule 4.1.">
+              ⚔️ Draft Commander ROE Order
+            </button>
+          </div>
+
+          <!-- Copilot Chat Log -->
+          <div id="copilotChatLog" class="copilot-chat-box">
+            <div class="copilot-msg bot">
+              <strong>BOB DEFENSE COPILOT:</strong> Greetings Analyst. Multi-source telemetry correlation is active. You can ask me any tactical query regarding current threat vectors, adversary TTPs, or automated BLUF assessments.
+            </div>
+          </div>
+
+          <!-- Copilot Input Form -->
+          <form id="formCopilot" style="display:flex; gap:10px; margin-top:14px;">
+            <input type="text" id="copilotInput" class="form-input" style="flex:1;" placeholder="Ask BOB Defense Intel Copilot..." required>
+            <button type="submit" class="btn btn-primary" id="btnSendCopilot">Ask Copilot</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 6: System Architecture & Clearance Redaction -->
+    <div class="tab-pane" id="tab-architecture">
+      <div class="tactical-panel">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span>🔒 Anti-Exploit Security Architecture & Clearance Redaction Engine</span>
+          </div>
+        </div>
+        <div class="panel-body" style="line-height:1.6; font-size:0.85rem;">
+          <h3 style="color:var(--cyan); margin-bottom:8px;">Zero-Trust & Role-Based Clearance Redaction Posture</h3>
+          <p style="color:var(--text-muted); margin-bottom:14px;">
+            Project BOB enforces zero-trust data segregation across defense intelligence feeds:
+          </p>
+          <ul style="margin-left:20px; color:var(--text-main); display:flex; flex-direction:column; gap:8px;">
+            <li><strong>Mandatory Analyst Registration Gate:</strong> Unauthenticated users are blocked with <code>401 Unauthorized</code> and cannot inspect live telemetry feeds.</li>
+            <li><strong>Role-Based Intelligence Redaction:</strong>
+              <br>• <strong>Level 3 (Confidential):</strong> Space RF uplink transponder carrier details are redacted with <code>[REDACTED // REQUIRES LEVEL-4+ SPACE/EW CLEARANCE]</code>.
+              <br>• <strong>Level 4 (Secret):</strong> Unlocks Space & Cyber correlation; Top Secret C2 strike keys & ROE Rule 4.1 execution are restricted.
+              <br>• <strong>Level 5 (Top Secret):</strong> Complete unredacted command access, ROE authorization, and raw strategic telemetry.
+            </li>
+            <li><strong>Supabase Cloud Database & PBKDF2 Vault:</strong> Credentials securely hashed using PBKDF2-HMAC-SHA256 (100,000 iterations).</li>
+            <li><strong>Sliding-Window Rate Limiting:</strong> Enforces 120 req/min limit to neutralize DoS & telemetry flooding attacks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Interactive MITRE Technique Playbook Modal -->
+  <div class="modal-overlay" id="modalMitreDetail">
+    <div class="modal-card">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span id="mitreModalTitle">⚔️ MITRE Technique Remediation Playbook</span>
+        </div>
+        <button class="btn" id="btnCloseMitreModal" style="padding:2px 8px;">✕</button>
+      </div>
+      <div style="padding:18px;" id="mitreModalBody">
+        <!-- Dynamically injected technique details & mitigation steps -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Node Detail Modal -->
+  <div class="modal-overlay" id="modalNodeDetail">
+    <div class="modal-card">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span id="nodeModalTitle">🌐 Node Intelligence Detail</span>
+        </div>
+        <button class="btn" id="btnCloseNodeModal" style="padding:2px 8px;">✕</button>
+      </div>
+      <div style="padding:18px;" id="nodeModalBody">
+        <!-- Node detail injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual Alert Ingestion Modal -->
+  <div class="modal-overlay" id="modalIngest">
+    <div class="modal-card">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span>➕ Ingest Raw Threat Log / Telemetry</span>
+        </div>
+        <button class="btn" id="btnCloseIngestModal" style="padding:2px 8px;">✕</button>
+      </div>
+      <div style="padding:18px;">
+        <div style="margin-bottom:14px; display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+          <span style="font-size:0.75rem; color:var(--text-muted);">Quick Presets:</span>
+          <button type="button" class="btn btn-preset" data-type="sat_jam" style="font-size:0.7rem; padding:3px 8px;">🛰️ SAT RF Jam</button>
+          <button type="button" class="btn btn-preset" data-type="siem_c2" style="font-size:0.7rem; padding:3px 8px;">💻 SIEM C2 Beacon</button>
+          <button type="button" class="btn btn-preset" data-type="benign_scan" style="font-size:0.7rem; padding:3px 8px;">🚫 Benign Vuln Scan (FP)</button>
+        </div>
+
+        <form id="formIngestAlert">
+          <div class="form-group">
+            <label class="form-label">Feed Source Type</label>
+            <select class="form-select" id="inputSourceType">
+              <option value="CYBER">Cyber Sensor (Zeek / EDR / Suricata)</option>
+              <option value="SATELLITE">Satellite Recon / RF Telemetry</option>
+              <option value="SIEM">SIEM Log (Splunk / CEF / Syslog)</option>
+              <option value="INTEL">Strategic Intelligence (STIX 2.1)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Defense Asset</label>
+            <input class="form-input" id="inputTargetAsset" value="SATCOM-UPLINK-TERMINAL-04" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Threat Signal / Title</label>
+            <input class="form-input" id="inputAlertTitle" placeholder="e.g. Cobalt Strike Beaconing or Ku-Band RF Jamming" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Raw Log / Description / Payload</label>
+            <textarea class="form-textarea" id="inputAlertDesc" placeholder="Paste raw syslog, CEF header, or satellite transponder telemetry..."></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+            <button type="button" class="btn" id="btnCancelIngest">Cancel</button>
+            <button type="submit" class="btn btn-primary">Process & Correlate</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase Config Modal -->
+  <div class="modal-overlay" id="modalSupabase">
+    <div class="modal-card">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span>☁️ Configure Supabase Cloud Integration</span>
+        </div>
+        <button class="btn" id="btnCloseSupabaseModal" style="padding:2px 8px;">✕</button>
+      </div>
+      <div style="padding:18px;">
+        <form id="formSupabaseConfig">
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+            Connect your Supabase project to store defense analyst credentials and synchronized threat intelligence:
+          </p>
+          <div class="form-group">
+            <label class="form-label">Supabase Project URL</label>
+            <input type="text" class="form-input" id="inputSupabaseUrl" placeholder="https://xyzcompany.supabase.co" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Supabase Anon / Service Role Key</label>
+            <input type="password" class="form-input" id="inputSupabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsIn..." required>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+            <button type="button" class="btn" id="btnCancelSupabase">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Supabase Config</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Config Modal -->
+  <div class="modal-overlay" id="modalLlm">
+    <div class="modal-card">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span>🔑 Configure Intelligence AI Engine</span>
+        </div>
+        <button class="btn" id="btnCloseLlmModal" style="padding:2px 8px;">✕</button>
+      </div>
+      <div style="padding:18px;">
+        <form id="formLlmConfig">
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+            Active Key: Configured in <code>.env</code>. You can update or replace your OpenAI API key below for real-time GPT-4o synthesis:
+          </p>
+          <div class="form-group">
+            <label class="form-label">OpenAI API Key (sk-...)</label>
+            <input type="password" class="form-input" id="inputApiKey" placeholder="sk-proj-..." required>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+            <button type="button" class="btn" id="btnCancelLlm">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Key</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

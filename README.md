@@ -9,7 +9,7 @@
 | Field | Value |
 |---|---|
 | **Team Name** | AlphaMatrix |
-| **Track** | AI / DevOps / Sustainability / Open |
+| **Track** | AI |
 | **Team Lead** | Rahil Barchha — 25dce006@charusat.edu.in |
 | **Members** | Spandan Kakadiya, Vedant Mevada, Krish Khanpara |
 

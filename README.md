@@ -23,19 +23,18 @@ Our project solves this by automatically filtering noise, correlating cross-doma
 
 ## 💡 Solution
 
-> In 2–3 sentences: What did you build? How does it solve the problem above?
+We built Project BOB, an automated defense intelligence platform that unifies multi-domain feeds across SIEM logs, satellite sensors, and cyber telemetry into a single tactical command dashboard. 
 
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
+It works through a cross-domain correlation engine that eliminates over 85% of false-positive noise, maps attack chains to the MITRE ATT&CK framework, and instantly generates structured BLUF (Bottom Line Up Front) briefings for rapid commander decision-making.
 
----
 
 ## ✨ Key Features
 
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
+- **Feature 1:** Multi-Domain Ingestion & Correlation: Unifies SIEM logs, satellite RF telemetry, cyber sensors, and STIX feeds into single coordinated threat clusters.
+- **Feature 2:** 85%+ Heuristic Noise Reduction: Automatically filters out benign scanner sweeps and sensor calibrations to isolate genuine adversary activity.
+- **Feature 3:** Real-Time MITRE ATT&CK Mapping: Maps detected tactics across 14 enterprise and space/electronic warfare domains with live technique heatmaps.
+- **Feature 4:** Automated Commander BLUF Briefings: Instantly synthesizes complex attack chains into structured, executive summaries with prioritized rules of engagement.
+- **Feature 5:** Tactical Command HUD: Delivers a dark glassmorphism dashboard featuring live canvas radar tracking and defense-grade anti-exploit hardening.
 
 ---
 

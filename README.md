@@ -17,11 +17,9 @@
 
 ## 🎯 Problem Statement
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
+Defense analysts and commanders face severe alert fatigue from thousands of fragmented SIEM, satellite, and cyber feeds daily, where chasing false positives drains resources and missing a real threat is catastrophic. 
 
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
-
----
+Our project solves this by automatically filtering noise, correlating cross-domain alerts to the MITRE ATT&CK framework, and generating rapid BLUF (Bottom Line Up Front) briefings so leadership can make decisive defense decisions in minutes.
 
 ## 💡 Solution
 

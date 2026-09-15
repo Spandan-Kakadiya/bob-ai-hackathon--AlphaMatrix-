@@ -42,11 +42,11 @@ It works through a cross-domain correlation engine that eliminates over 85% of f
 
 | Category | Technologies |
 |---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
+| **Languages** | [Python, JavaScript (ES6+), HTML5, CSS3] |
+| **Frameworks** | [FastAPI, Uvicorn, Pydantic, Starlette ] |
+| **IBM Technologies** | [IBM watsonx.ai , IBM QRadar SIEM integration] |
+| **Databases** | [PostgreSQL , In-Memory Cache] |
+| **Other** | [MITRE ATT&CK Matrix, STIX 2.1, HTML5 Canvas API, RESTful APIs, PBKDF2-SHA256] |
 
 ---
 
@@ -105,14 +105,14 @@ cp .env.example .env
 
 > Be honest — judges appreciate transparency over overclaiming.
 
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
+- [Limitation 1: In-Memory Alert Storage & State Persistenceady"]
+- [Limitation 2: Dependency on Cloud / External LLMs for Enhanced BLUF Synthesis"]
+- [Limitation 3: Synthetic Satellite & Electronic Warfare (EW) Data"]
 
 ---
 
 ## 🏅 What We're Most Proud Of
 
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
+[The core strength of our submission is our Cross-Domain Correlation and BLUF Generation Engine. It is the only solution that unifies Space/Satellite electronic warfare with ground cyber telemetry, cuts 85% of alert noise, and instantly translates complex attack chains into structured, decision-ready briefings that military commanders can act on in minutes.]
 
 ---

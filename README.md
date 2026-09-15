@@ -10,7 +10,7 @@
 |---|---|
 | **Team Name** | [AlphaMatrix] |
 | **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Rahil Barchha] — [barchharahil710@gmail.com] |
+| **Team Lead** | [Rahil Barchha] — [25dce006@charusat.edu.in] |
 | **Members** | [Spandan Kakadiya], [Vedant Mevada], [Krish Khanpara] |
 
 ---

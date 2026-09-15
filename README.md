@@ -8,10 +8,10 @@
 
 | Field | Value |
 |---|---|
-| **Team Name** | [Your Team Name] |
+| **Team Name** | [AlphaMatrix] |
 | **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+| **Team Lead** | [Rahil Barchha] — [barchharahil710@gmail.com] |
+| **Members** | [Spandan Kakadiya], [Vedant Mevada], [Krish Khanpara] |
 
 ---
 

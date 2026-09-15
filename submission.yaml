@@ -13,7 +13,7 @@ team:
       email: "25dce046@charusat.edu.in"
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "Bob Defence System"                            
 
   problem_statement: >                
     Defense analysts and commanders face severe alert fatigue from thousands of fragmented SIEM, satellite, 

@@ -8,10 +8,10 @@
 
 | Field | Value |
 |---|---|
-| **Team Name** | [AlphaMatrix] |
-| **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Rahil Barchha] — [25dce006@charusat.edu.in] |
-| **Members** | [Spandan Kakadiya], [Vedant Mevada], [Krish Khanpara] |
+| **Team Name** | AlphaMatrix |
+| **Track** | AI / DevOps / Sustainability / Open |
+| **Team Lead** | Rahil Barchha — 25dce006@charusat.edu.in |
+| **Members** | Spandan Kakadiya, Vedant Mevada, Krish Khanpara |
 
 ---
 
@@ -42,11 +42,11 @@ It works through a cross-domain correlation engine that eliminates over 85% of f
 
 | Category | Technologies |
 |---|---|
-| **Languages** | [Python, JavaScript (ES6+), HTML5, CSS3] |
-| **Frameworks** | [FastAPI, Uvicorn, Pydantic, Starlette ] |
-| **IBM Technologies** | [IBM watsonx.ai , IBM QRadar SIEM integration] |
-| **Databases** | [PostgreSQL , In-Memory Cache] |
-| **Other** | [MITRE ATT&CK Matrix, STIX 2.1, HTML5 Canvas API, RESTful APIs, PBKDF2-SHA256] |
+| **Languages** | Python, JavaScript (ES6+), HTML5, CSS3 |
+| **Frameworks** | FastAPI, Uvicorn, Pydantic, Starlette |
+| **IBM Technologies** | IBM watsonx.ai , IBM QRadar SIEM integration |
+| **Databases** | PostgreSQL , In-Memory Cache |
+| **Other** | MITRE ATT&CK Matrix, STIX 2.1, HTML5 Canvas API, RESTful APIs, PBKDF2-SHA256 |
 
 ---
 
@@ -105,14 +105,14 @@ cp .env.example .env
 
 > Be honest — judges appreciate transparency over overclaiming.
 
-- [Limitation 1: In-Memory Alert Storage & State Persistenceady"]
-- [Limitation 2: Dependency on Cloud / External LLMs for Enhanced BLUF Synthesis"]
-- [Limitation 3: Synthetic Satellite & Electronic Warfare (EW) Data"]
+- Limitation 1: In-Memory Alert Storage & State Persistenceady.
+- Limitation 2: Dependency on Cloud / External LLMs for Enhanced BLUF Synthesis.
+- Limitation 3: Synthetic Satellite & Electronic Warfare (EW) Data.
 
 ---
 
 ## 🏅 What We're Most Proud Of
 
-[The core strength of our submission is our Cross-Domain Correlation and BLUF Generation Engine. It is the only solution that unifies Space/Satellite electronic warfare with ground cyber telemetry, cuts 85% of alert noise, and instantly translates complex attack chains into structured, decision-ready briefings that military commanders can act on in minutes.]
+The core strength of our submission is our Cross-Domain Correlation and BLUF Generation Engine. It is the only solution that unifies Space/Satellite electronic warfare with ground cyber telemetry, cuts 85% of alert noise, and instantly translates complex attack chains into structured, decision-ready briefings that military commanders can act on in minutes.
 
 ---
